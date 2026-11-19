@@ -44,6 +44,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Copy to Local') {
+            steps {
+                sh '''
+                    if [ -d /data ]; then
+                        cp employees.xlsx /data/employees.xlsx
+                        echo "employees.xlsx copied to C:\\jenkins-data on the laptop"
+                    else
+                        echo "Shared folder /data not found - skipped local copy"
+                    fi
+                '''
+            }
+        }
     }
 
     post {
